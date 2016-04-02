@@ -29,11 +29,11 @@ After the test create the export "Test Archive File". The signed PDFs will be st
 ### The signPdf.jar ###
 
 The Repo contains
-* the main files for the signPdf.jar at /SignPdf_src
+* the main files for the signPdf.jar at /SignPdf
 * the ready to use singPdf.jar in /resources
 
 
 ### Credits ###
-* Original Javacode by Steffen Dienst, University Leipzig for ElateXam 2010
-* Porting to a plugin for ILIAS 4.4 by Yves Annanias, University Halle 2014
+* Original Javacode by Steffen Dienst, University Leipzig for ElateXam, 2010
+* Porting to a plugin for ILIAS 4.4 by Yves Annanias, University Halle, 2014
 * Further development by Christoph Jobst, University Halle, 2014/2015/2016
