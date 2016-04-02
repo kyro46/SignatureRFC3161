@@ -7,8 +7,13 @@ It uses the free DFN-timestamp-service with the RFC-3161 standard („Internet X
 
 ### Usage ###
 
-Install the plugin to
-* Customizing/global/plugins/Modules/Test/Signature
+Install the plugin
+
+```bash
+mkdir -p Customizing/global/plugins/Modules/Test/Signature  
+cd Customizing/global/plugins/Modules/Test/Signature
+git clone https://github.com/kyro46/SignatureRFC3161.git
+```
 
 and activate it in the ILIAS-Admin-GUI.
 
@@ -21,15 +26,14 @@ Before the test, activate:
 
 After the test create the export "Test Archive File". The signed PDFs will be stored inside.
 
-### Build ###
+### The signPdf.jar ###
 
 The Repo contains
-* the main files for the signPDF.jar at /SignPdf
-* the general plugincode for ILIAS at /signatureRFC3161
-
-The .jar has to be stored in /signatureRFC3161/resources for the plugin to work.
+* the main files for the signPdf.jar at /SignPdf_src
+* the ready to use singPdf.jar in /resources
 
 
 ### Credits ###
 * Original Javacode by Steffen Dienst, University Leipzig for ElateXam 2010
 * Porting to a plugin for ILIAS 4.4 by Yves Annanias, University Halle 2014
+* Further development by Christoph Jobst, University Halle, 2014/2015/2016
