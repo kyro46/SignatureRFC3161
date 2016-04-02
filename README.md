@@ -1,6 +1,6 @@
-# ILIAS 4.4 Signature Plugin #
+# ILIAS Signature Plugin for Tests#
 
-### Digital signature and timestamp for exams in ILIAS 4.4 ###
+### Digital signature and timestamp for exams in ILIAS ###
 
 This plugin will add a digital signature to the PDF generated after exams, if the corresponding flag in the testoptions is set.
 It uses the free DFN-timestamp-service with the RFC-3161 standard („Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)“).
