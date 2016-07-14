@@ -37,8 +37,8 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 		$basePfad = './Customizing/global/plugins/Modules/Test/Signature/SignatureRFC3161/resources/';
 		$filename = './Customizing/global/plugins/Modules/Test/Signature/SignatureRFC3161/resources/test.pdf';
 		
-		$input = 'java -jar "'.$basePfad."signPdf.jar".'" "'.$filename.'"  "'.$record['key_alias'].'" "'
-			.$record['certificate_chain_alias'].'" "'.$record['keystore_password'].'" "'.$record['private_key_password'].'" "'.$basePfad.$record['keystore_file'].'" 2>&1';
+		$input = 'java '.$record['jvm'].' -jar '.$basePfad.'signPdf.jar'.' '.$filename.'  '.$record['key_alias'].' '
+			.$record['certificate_chain_alias'].' '.$record['keystore_password'].' '.$record['private_key_password'].' '.$basePfad.$record['keystore_file'].' '.$record['tsa'].' 2>&1';
 		$errorString =shell_exec($input);			 
 		$len = strlen($errorString);				
 		if ($len > 0 )
@@ -76,6 +76,9 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 			$certificateChainAlias = $form->getInput("certificateChainAliasValue");
 			$keystorePassword = $form->getInput("keystorePasswordValue");
 			$privateKeyPassword = $form->getInput("privateKeyPasswordValue");
+			$tsa = $form->getInput("tsa");
+			$jvm = $form->getInput("jvm");
+				
 			// upload file
 			$fileinfo = pathinfo($_FILES["keystore"]["name"]);
 			$extract_file = "./Customizing/global/plugins/Modules/Test/Signature/SignatureRFC3161/resources/".$fileinfo["basename"];
@@ -89,7 +92,9 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 					"certificate_chain_alias" 	=>  array("text", $certificateChainAlias),
 					"keystore_password" 		=>  array("text", $keystorePassword),
 					"private_key_password" 		=>  array("text", $privateKeyPassword),
-					"keystore_file"				=>	array("text", $fileinfo["basename"])
+					"keystore_file"				=>	array("text", $fileinfo["basename"]),
+					"tsa"						=>	array("text", $tsa),
+					"jvm"						=>	array("text", $jvm)
 					)/*,
 					array(
 						"id" =>        array("integer", 1)						
@@ -132,7 +137,7 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 		$result = $ilDB->query("SELECT * FROM tst_tsig_rfc3161_keys WHERE id=0");		
 		$record = $ilDB->fetchAssoc($result);		
 		// 								String -> Gui, access-name
-		$keyAlias = new ilTextInputGUI("keyAlias", "keyAliasValue");
+		$keyAlias = new ilTextInputGUI("KeyAlias", "keyAliasValue");
 		//$keyAlias->setInfo('Info:');
 		$keyAlias->setRequired(true);
 		$keyAlias->setMaxLength(100);
@@ -164,8 +169,22 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 		$privateKeyPassword->setSize(60);
 		$privateKeyPassword->setValue($record['private_key_password']);
 		$form->addItem($privateKeyPassword);		
+
+		$tsa_form = new ilTextInputGUI("Timestamping Authority", "tsa");
+		$tsa_form->setRequired(true);
+		$tsa_form->setMaxLength(100);
+		$tsa_form->setSize(60);
+		$tsa_form->setValue($record['tsa']);
+		$form->addItem($tsa_form);
+
+		$jvm_form = new ilTextInputGUI("JVM Parameter (Proxy etc.)", "jvm");
+		$jvm_form->setRequired(false);
+		$jvm_form->setMaxLength(100);
+		$jvm_form->setSize(60);
+		$jvm_form->setValue($record['jvm']);
+		$form->addItem($jvm_form);
 		
-		$fi = new ilFileInputGUI("file", "keystore");
+		$fi = new ilFileInputGUI("Keystore", "keystore");
 		$fi->setRequired(true);
 		$fi->setSuffixes(array("keystore"));
 		$fi->setSize(30);

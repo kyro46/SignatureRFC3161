@@ -1,6 +1,6 @@
 <?php
 $id                = 'SignatureRFC3161';
-$version           = '0.0.6';
+$version           = '0.0.7';
 $ilias_min_version = '4.4.0';
 $ilias_max_version = '5.0.999';
 //09/2014:

@@ -56,9 +56,9 @@ class ilSignatureRFC3161Plugin extends ilTestSignaturePlugin
 		$result = $ilDB->query("SELECT * FROM tst_tsig_rfc3161_keys WHERE id=0");		
 		$record = $ilDB->fetchAssoc($result);		
 		
-		$errorString = shell_exec('java -jar "'.$basePfad."signPdf.jar".'" "'.$filename.'"  "'.$record['key_alias'].'" "'
-			.$record['certificate_chain_alias'].'" "'.$record['keystore_password'].'" "'.$record['private_key_password'].'" "'.$basePfad.$record['keystore_file'].'" 2>&1');
-		// 3. ist ein fehler aufgetreten?				
+		$input = 'java '.$record['jvm'].' -jar '.$basePfad.'signPdf.jar'.' '.$filename.'  '.$record['key_alias'].' '
+			.$record['certificate_chain_alias'].' '.$record['keystore_password'].' '.$record['private_key_password'].' '.$basePfad.$record['keystore_file'].' '.$record['tsa'].' 2>&1';
+		$errorString =shell_exec($input);			 
 		$len = strlen($errorString);				
 		if ($len > 0 )
 		{
