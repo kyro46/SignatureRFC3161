@@ -1,0 +1,5 @@
+sign_header#:#Signature Plugin Configuration
+sign_used_keystore#:#Current Keystore-File: 
+sign_error#:#A problem occured. Please check your input.
+sign_success#:#Input successfully tested.
+tsa_hint#:#http://zeitstempel.dfn.de/ (academic users) or any other RFC 3161 compliant timestamping service
