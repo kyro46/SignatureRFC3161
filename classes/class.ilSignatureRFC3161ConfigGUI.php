@@ -30,6 +30,7 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
       */
      function check()
      {
+     	$plugin = new ilSignatureRFC3161Plugin();
 		global $ilDB, $tpl, $ilCtrl;
 		
 		$result = $ilDB->query("SELECT * FROM tst_tsig_rfc3161_keys WHERE id=0");		
@@ -50,11 +51,11 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 			$template->parseCurrentBlock();
 			$form = $this->initConfigurationForm();
 			$tpl->setContent($template->get().$form->getHTML());			
-			ilUtil::sendFailure("Das Signieren ist fehlgeschalgen, bitte überprüfen Sie die Eingaben.", true);		
+			ilUtil::sendFailure($plugin->txt("sign_error"), true);		
 		} 
 		else
 		{
-			ilUtil::sendSuccess("Eingaben erfolgreich getestet.", true);
+			ilUtil::sendSuccess($plugin->txt("sign_success"), true);
 			$this->configure();
 		}
 	 }
@@ -129,7 +130,9 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 	 */
 	public function initConfigurationForm()
 	{
-		global $lng, $ilCtrl, $ilDB;			
+		
+		$plugin = new ilSignatureRFC3161Plugin();
+		global $lng, $ilCtrl, $ilDB;	
 	
 		include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
 		$form = new ilPropertyFormGUI();
@@ -175,6 +178,7 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 		$tsa_form->setMaxLength(100);
 		$tsa_form->setSize(60);
 		$tsa_form->setValue($record['tsa']);
+		$tsa_form->setInfo($plugin->txt("tsa_hint"));
 		$form->addItem($tsa_form);
 
 		$jvm_form = new ilTextInputGUI("JVM Parameter (Proxy etc.)", "jvm");
@@ -188,14 +192,14 @@ class ilSignatureRFC3161ConfigGUI extends ilPluginConfigGUI
 		$fi->setRequired(true);
 		$fi->setSuffixes(array("keystore"));
 		$fi->setSize(30);
-		$fi->setInfo("Current Keystore-File: ".$record['keystore_file']); 
+		$fi->setInfo($plugin->txt("sign_used_keystore").$record['keystore_file']); 
 		$form->addItem($fi);
 		
 		if ($ilDB->numRows($result) > 0)
 			$form->addCommandButton("check", "check");
 		$form->addCommandButton("save", "save");
 	                
-		$form->setTitle("Signature Plugin Configuration");
+		$form->setTitle($plugin->txt("sign_header"));
 		$form->setFormAction($ilCtrl->getFormAction($this));
 		
 		return $form;

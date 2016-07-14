@@ -1,0 +1,5 @@
+sign_header#:#Konfiguration der PDF-Signatur
+sign_used_keystore#:#Aktueller Keystore: 
+sign_error#:#Das Signieren ist fehlgeschlagen, bitte überprüfen Sie die Eingaben.
+sign_success#:#Eingaben erfolgreich getestet.
+tsa_hint#:#http://zeitstempel.dfn.de/ (akademische Nutzer) oder ein beliebiger anderer zu RFC 3161 kompatibler Zeitstempeldienst

@@ -28,6 +28,8 @@ After the test create the export "Test Archive File". The signed PDFs will be st
 
 ### The signPdf.jar ###
 
+Requires Java 7 or newer.
+
 The Repo contains
 * the main files for the signPdf.jar at /SignPdf
 * the ready to use singPdf.jar in /resources
