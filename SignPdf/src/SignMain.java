@@ -110,7 +110,7 @@ public class SignMain {
 	    TSAClient tsc = new TSAClientBouncyCastle(this.tsa_URL);
 	    ExternalDigest digest = new BouncyCastleDigest();
 	    ExternalSignature signature = new PrivateKeySignature(getPrivateKey(), "SHA-1", "BC");
-	    MakeSignature.signDetached(appearance, digest, signature, new Certificate[] { getCertificateChain() }, null, null, tsc, 0,
+	    MakeSignature.signDetached(appearance, digest, signature, getCertificateChain() , null, null, tsc, 0,
 	            CryptoStandard.CMS);
 	}
 
@@ -146,8 +146,8 @@ public class SignMain {
 	* @return
 	* @throws KeyStoreException
 	*/
-	  public Certificate getCertificateChain() throws KeyStoreException {
-	    final Certificate cert = getKeystore().getCertificate(this.certificate_chain_alias);
+	  public Certificate[] getCertificateChain() throws KeyStoreException {
+	    final Certificate[] cert = getKeystore().getCertificateChain(this.certificate_chain_alias);
 
 	    return cert;
 
