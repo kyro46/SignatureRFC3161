@@ -94,7 +94,17 @@ class ilSignatureRFC3161Plugin extends ilTestSignaturePlugin
 		// folgendes findet in der Modules/Test/classes/class.ilTestServiceGUI.php statt:
 		// getPassListOfAnswers($results, $active, $pass, $show_solutions = FALSE, $only_answered_questions = FALSE, $show_question_only = FALSE, 
 		//						$show_reached_points = FALSE, $compare_solutions = FALSE)
-		$results_output = $testevaluationgui->getPassListOfAnswers($results, $active, $pass, false, false, false, true, true);
+		
+		//New code for PDF-creation in 5.1+
+		global $lng;
+		global $ilObjDataCache;
+		
+		$objectivesList = null;
+		require_once './Modules/Test/classes/class.ilTestResultHeaderLabelBuilder.php';
+		$testResultHeaderLabelBuilder = new ilTestResultHeaderLabelBuilder($lng, $ilObjDataCache);  //$lng, $ilObjDataCache);
+		$results_output = $testevaluationgui->getPassListOfAnswers($results, $active, $pass, false, false, false, true, true, $objectivesList, $testResultHeaderLabelBuilder);
+		// Old: $results_output = $testevaluationgui->getPassListOfAnswers($results, $active, $pass, false, false, false, true, true);
+		//End of 5.1-specific PDF-Code
 		
 		$base = ilUtil::getDataDir().'/temp/';
 		if ( !is_dir($base) ) {
