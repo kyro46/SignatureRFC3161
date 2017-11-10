@@ -39,3 +39,18 @@ $ilDB->manipulate('INSERT INTO tst_tsig_rfc3161_keys (id, key_alias, certificate
         );
     }
 ?>
+
+<#4>
+<?php 
+require_once './Services/PDFGeneration/classes/class.ilPDFCompInstaller.php';
+
+$service = 'Test';
+$purpose = 'Signature';
+$preferred = 'PhantomJS';
+
+$isInstalled = \ilPDFCompInstaller::isPurposeRegistered($service, $purpose);
+// to get a bool to check if it is already registered and if not, call
+if (!$isInstalled) 
+    \ilPDFCompInstaller::registerPurpose($service, $purpose, $preferred);
+
+?>
